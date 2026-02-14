@@ -1,0 +1,52 @@
+/* テーブルコンテナ横スクロール */
+.table-responsive{
+  width: 100vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* テーブル要素 */
+.history-table {
+  min-width: 600px;  /* テーブルが潰れすぎないように最低幅を指定 */
+  border-collapse: collapse;
+  margin: 0 auto;
+  table-layout: fixed; /* CSSで指定した width を最優先 */
+  background-color: #ffffff;
+  min-width: max-content;
+  color: #213547;
+}
+
+/* レコード要素 */
+.history-table th,
+.history-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+/* 日付列 */
+.history-table .col-date {
+  width: 100px; /* 見切れ防止 */
+}
+
+/* バッチID */
+.col-batch {
+  width: 280px; /* UUID想定 */
+}
+
+/* 予測値 */
+.col-digit {
+  width: 60px;
+}
+
+/* 予測確率 */
+.col-confidence {
+  width: 60px;
+}
+
+/* 長い文字列対策（batch_idなど） */
+.history-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

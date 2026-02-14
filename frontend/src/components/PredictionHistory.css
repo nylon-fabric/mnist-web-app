@@ -1,0 +1,18 @@
+/* ページ全体を囲むコンテナ */
+.PredictionHistory-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 上揃えに固定 */
+  align-items: center;         /* 横方向は中央 */
+  min-height: 80vh;            /* コンテンツが少なくても高さを確保 */
+  padding-top: 20px;           /* ナビゲーションとの距離調整 */
+  width: 100%;
+}
+
+.PredictionHistory-select-container{
+   margin-bottom: 10px;
+}
+
+.PredictionHistory-select{
+  margin-left: 8px;
+}

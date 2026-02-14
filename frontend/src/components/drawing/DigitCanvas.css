@@ -1,0 +1,15 @@
+
+/* 親コンテナ */
+.canvas-container {
+    display: flex;
+    flex-direction: column; /* 上下に並べる */
+    align-items: center;    /* 横方向に中央揃え */
+    gap: 10px;              /* キャンバスとボタンの間隔 */
+}
+/* クリアボタン個別 */
+.clear-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  color:rgb(81, 102, 160);
+  background-color: rgb(226, 226, 229);
+}

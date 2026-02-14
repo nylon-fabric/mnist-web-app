@@ -1,0 +1,74 @@
+@startuml
+skinparam defaultFontName "Noto Sans CJK JP"
+
+actor User
+participant "DigitCanvas" as Child1
+participant "DrawingCanvas" as Parent
+participant "PredictionFeedback" as Child2
+
+box "Backend (Django)" #f8f9fa
+    participant "PredictView" as Django1
+    participant "SaveTrainingDateView" as Django2
+    participant "history_utils" as DB_Utils
+end box
+
+participant "Flask (AI Model)" as Model
+
+database "SQLite\nPredictionHistory" as DB1
+database "SQLite\nRetrainingData" as DB2
+
+
+== 描画フェーズ ==
+User -> Child1: マウス操作
+Child1 -> Parent: onDraw / onStartDraw
+Parent -> Parent: キャンバスに描画
+
+== 1. 予測フェーズ (Predict) ==
+User -> Child1: 数字を記述
+User -> Parent: 「予測する」クリック
+
+Parent -> Parent: Promise.all で複数キャンバスを並列処理
+note right of Parent
+複数キャンバスを
+非同期で同時送信
+end note
+
+Parent -> Django1: POST /api/predict/ (FormData)
+note over Parent, Django1
+    batch_id により複数桁を
+    1つの予測として紐付け
+end note
+activate Django1
+
+Django1 -> Model: call_flask_predict_api (requests)
+activate Model
+Model -> Model: TensorFlow予測実行
+Model --> Django1: 予測結果 & Confidence
+deactivate Model
+
+Django1 -> DB_Utils: save_prediction_history()
+DB_Utils -> DB1: INSERT (HistoryTable)
+
+Django1 --> Parent: JSON {digit, confidence}
+deactivate Django1
+
+Parent -> Parent: 信頼度判定 & State更新
+
+== 2. フィードバックフェーズ (Save Training Data) ==
+Parent -> Child2: 予測結果を表示
+User -> Child2: 数字ボタン (0-9) のいずれかをクリック
+
+Child2 -> Parent: saveSingleDigit()実行
+activate Parent
+
+Parent -> Django2: POST /api/save-training-data/ (FormData)
+activate Django2
+
+Django2 -> DB2: RetrainingData.objects.create()
+Django2 --> Parent: JSON {status: success}
+deactivate Django2
+
+Parent -> User: alert("保存しました")
+deactivate Parent
+
+@enduml

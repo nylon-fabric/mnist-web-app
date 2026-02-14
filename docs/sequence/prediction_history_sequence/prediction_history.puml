@@ -1,0 +1,58 @@
+@startuml
+skinparam defaultFontName "Noto Sans CJK JP"
+
+actor User
+participant "PredictionHistory\n(Parent)" as Parent
+participant "HistoryTable\n(Child)" as Table
+participant "api.ts\n(Service)" as API
+
+box "Backend (Django)" #f8f9fa
+    participant "PredictionHistoryView" as View1
+    participant "ExportCSVView" as View2
+    database "SQLite" as DB
+end box
+
+== 1. 履歴取得フェーズ (初期表示 & 件数変更) ==
+
+User -> Parent: ページ表示 / 表示件数変更
+activate Parent
+
+Parent -> API: getHistory(limit)
+API -> View1: GET /api/history/?limit=X
+activate View1
+
+View1 -> DB: Group By (batch_id)\n& Aggregation (Min/Avg)
+DB --> View1: summary_query
+
+loop batch_id ごとのループ
+    View1 -> DB: 紐づく全桁を取得
+    View1 -> View1: 文字列結合 (full_digit)
+end
+
+View1 --> API: JSON (結合済みデータ)
+deactivate View1
+
+API --> Parent: history data
+Parent -> Table: Props伝播 (history)
+Table --> User: 履歴一覧表示
+deactivate Parent
+
+== 2. CSVエクスポートフェーズ ==
+
+User -> Parent: 「CSVダウンロード」クリック
+activate Parent
+
+Parent -> API: getExportUrl()
+Note over Parent, API: window.location.href により\nブラウザが直接URLを叩く
+
+Parent -> View2: GET /api/history/export/
+activate View2
+
+View2 -> DB: 全履歴をSELECT (ORDER BY)
+View2 -> View2: CSVヘッダー & 行生成
+View2 --> User: HTTP Response (text/csv)\n※ファイル保存ダイアログ
+deactivate View2
+
+deactivate Parent
+
+@enduml

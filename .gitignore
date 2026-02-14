@@ -1,0 +1,17 @@
+# frontend
+frontend/node_modules/
+frontend/dist/
+
+# Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.venv/
+
+# django
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/

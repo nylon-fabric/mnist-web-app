@@ -1,0 +1,56 @@
+@startuml
+skinparam defaultFontName "Noto Sans CJK JP"
+
+actor User
+participant "SettingsPage\n(Parent)" as Parent
+participant "ConfidenceThreshold\n(Child)" as Child1
+participant "ModelSelector\n(Child)" as Child2
+participant "SettingsContext" as Context
+database "LocalStorage" as LS
+
+box "Backend (Django)" #f8f9fa
+    participant "AIModelListAPIView" as ViewList
+    participant "SwitchModelAPIView" as ViewSwitch
+    database "SQLite" as DB
+end box
+
+== 1. 初期化フェーズ (Mount) ==
+
+Parent -> ViewList: GET /api/models/
+activate ViewList
+ViewList -> DB: 全モデル取得
+ViewList --> Parent: models[]
+deactivate ViewList
+
+Parent -> LS: getItem("appSettings")
+LS --> Parent: 設定
+Parent -> Context: setSettings(parsedData)
+
+
+== 2. 信頼度下限の設定 (Client Side) ==
+
+User -> Child1: スライダーを操作
+Child1 -> Child1: setValue(localState)
+Child1 -> Context: setSettings(newThreshold)
+Context -> LS: setItem("appSettings", JSON)
+Note right of LS: ブラウザを閉じても\n設定が維持される
+
+== 3. 使用モデルの切り替え (Server Side) ==
+
+User -> Child2: ドロップダウン選択
+Child2 -> Context: setSettings(newModelId)
+Child2 -> ViewSwitch: POST /api/switch-model/ (model_id)
+activate ViewSwitch
+
+ViewSwitch -> DB: 対象モデルを有効化 (save)
+note right of DB
+Model.save() 内で
+他モデルを自動的に無効化
+end note
+
+ViewSwitch --> Child2: 200 OK (Success Message)
+deactivate ViewSwitch
+
+Child2 -> User: 現在のモデル表示更新
+
+@enduml

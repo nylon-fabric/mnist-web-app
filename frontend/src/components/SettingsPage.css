@@ -1,0 +1,9 @@
+/* 設定ページ全体を囲むコンテナ */
+.SettingsPage-wrapper{
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 上揃えに固定 */
+  align-items: center;         /* 横方向は中央 */
+  min-height: 80vh;            /* コンテンツが少なくても高さを確保 */
+  padding-top: 20px;           /* ナビゲーションとの距離調整 */
+}

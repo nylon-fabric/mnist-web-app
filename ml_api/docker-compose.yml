@@ -1,0 +1,12 @@
+version: '3.8' # Docker Composeのフォーマットバージョン
+
+services:
+  ml_api:
+    build: . # 同じフォルダにあるDockerfileを使ってビルド
+    container_name: mnist-api-cnn
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app # ローカルの変更をコンテナに即反映させる
+    environment:
+      - FLASK_ENV=development # 開発モード

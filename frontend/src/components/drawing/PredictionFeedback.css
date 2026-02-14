@@ -1,0 +1,72 @@
+/* 親コンテナ */
+.prediction-feedback-container {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  color: #213547;
+}
+
+/* カードコンテナ */
+.prediction-card-container{
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* 各桁のカード */
+.prediction-card {
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: #fff;
+}
+
+/* 予測画像 */
+.prediction-card img {
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  width: 60px;
+}
+
+/* AIの予測テキスト */
+.prediction-card p strong {
+  font-size: 1.2em;
+  color: blue;
+}
+
+/* 桁のボタン群 */
+.digit-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+  
+}
+
+/* ボタン個別 */
+.digit-buttons button {
+  padding: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  color: #213547;
+}
+
+/* 選択済ボタン */
+.digit-buttons button.selected {
+  background-color: #d0edfa;
+}
+
+/* 閉じるボタン */
+.close-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+.close-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+

@@ -1,0 +1,22 @@
+[
+  {
+    "model": "myapp.aimodelconfig",
+    "pk": 1,
+    "fields": {
+      "name": "MNIST CNN V1",
+      "api_url": "http://localhost:5000",
+      "is_active": false,
+      "description": "初期CNNモデル"
+    }
+  },
+  {
+    "model": "myapp.aimodelconfig",
+    "pk": 2,
+    "fields": {
+      "name": "MNIST Logistic V1",
+      "api_url": "http://localhost:5001",
+      "is_active": false,
+      "description": "切り替えテスト用初期ロジスティクス回帰モデル"
+    }
+  }
+]

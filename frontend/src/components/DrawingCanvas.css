@@ -1,0 +1,30 @@
+
+/* キャンバス要素全体 */
+.DrawingCanvas-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 上揃えに固定 */
+    align-items: center;         /* 横方向は中央 */
+    min-height: 80vh;            /* コンテンツが少なくても高さを確保 */
+    padding-top: 20px;           /* ナビゲーションとの距離調整 */
+}
+
+/* キャンバス */
+.canvases-container{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;/*自動的に複数行に折り返す*/
+    justify-content: center; /*中央寄せに*/
+}
+
+/* 予測ボタン */
+.prediction-button{
+    margin-top: 20px;
+}
+
+/* 予測フィードバックエリア */
+.feedback-outer-wrapper {
+  justify-content: center; /* 横方向の中央 */
+  width: 100%;             /* 横幅いっぱいの領域を確保 */
+  margin-top: 20px;
+}
