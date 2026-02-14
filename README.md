@@ -79,4 +79,4 @@ npm run dev
 - MNIST Logistic http://localhost:5001
 
 ### AIModelConfig設計詳細
-- ["クラス図"]("/docs/classDiagram/classDiagram.md")
+- ["クラス図"](/docs/classDiagram/classDiagram.md)
