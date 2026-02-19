@@ -36,4 +36,4 @@
 - 学習データの10%を検証用データとして使用（validation_split=0.1）。
 
 ## レイヤー図
-![レイヤー図](portfolio/architecture/ml_model_architecture/ml_model_architecture.svg)
+![レイヤー図](../architecture/ml_model_architecture/ml_model_architecture.svg)
