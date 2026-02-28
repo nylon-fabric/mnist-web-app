@@ -1,5 +1,5 @@
 # AI手書き数字認識システム (mnist-web-app)
-![フロント表示内容](/docs/screen/after_prediction.png)
+![フロント表示内容](/docs/screen/mnist-web.gif)
 ## 概要
 授業で習得したReactに加え、独学で習得したDjango、Flask、TensorFlowを組み合わせた、フルスタックなAI Webアプリケーションです。<br>
 数値予測に留まらず、多桁の数字認識や、ユーザーによる判定結果の修正を通じた「再学習用データの蓄積」など、実運用を見据えた設計をいたしました。
