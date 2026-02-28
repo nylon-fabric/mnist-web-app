@@ -64,7 +64,7 @@ jobs:
       - name: Test CNN API
       # Dockerコンテナ経由でAPI確認
         run: |
-          curl -X POST http://localhost:5000/predict \
+          curl -X POST http://localhost:5001/predict \
           -H "Content-Type: application/json" \
           -d '{"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
 
@@ -87,7 +87,7 @@ jobs:
 
       - name: Test Logistic API
         run: |
-          curl -X POST http://localhost:5001/predict \
+          curl -X POST http://localhost:5002/predict \
           -H "Content-Type: application/json" \
           -d '{"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
 
