@@ -34,7 +34,7 @@ jobs:
       - name: Start Flask API
         run: |
           cd ml_api
-          flask run --host=0.0.0.0 &
+          python app.py &
           sleep 5
 
       - name: Test Predict API (Local Flask)
