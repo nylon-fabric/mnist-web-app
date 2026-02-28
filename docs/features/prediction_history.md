@@ -91,4 +91,4 @@ getExportUrl()
     - ブラウザの標準動作によりダウンロードが行われる
 
 ## シーケンス図
-![シーケンス図](portfolio\sequence\prediction_history_sequence\prediction_history.svg)
+![シーケンス図](../sequence/prediction_history_sequence/prediction_history.svg)

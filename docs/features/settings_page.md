@@ -87,4 +87,4 @@
 
 
 ## シーケンス図
-![シーケンス図](portfolio\sequence\settings_page_sequence\settings_page.svg)
+![シーケンス図](../sequence/settings_page_sequence/settings_page.svg)

@@ -107,4 +107,4 @@
 4. JSON で返却
 
 ## シーケンス図
-![シーケンス図](..\sequence\drawing_canvas_sequence\drawing.svg)
+![シーケンス図](../sequence/drawing_canvas_sequence/drawing.svg)
