@@ -1,0 +1,97 @@
+name: CI Full Check
+
+# コード変更時に毎回チェック
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+# まっさらなLinux環境を用意
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    # GitHubリポジトリを仮想マシンにコピー
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # LinuxマシンにPython 3.11をインストール
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      # ----------------------
+      # Flask 単体テスト
+      # ----------------------
+      - name: Install ML API dependencies
+        run: |
+          cd ml_api
+          pip install -r requirements.txt
+
+      # Fml_api にある Flaskアプリを起動　5秒待つ
+      - name: Start Flask API
+        run: |
+          cd ml_api
+          flask run --host=0.0.0.0 &
+          sleep 5
+
+      - name: Test Predict API (Local Flask)
+      # curl テスト　外部からHTTPリクエストを送り、起動して、エンドポイントが動くか？
+        run: |
+          curl -X POST http://127.0.0.1:5000/predict \
+          -H "Content-Type: application/json" \
+          -d '{"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
+
+      - name: Kill Local Flask
+        run: pkill -f flask || true # ポート解放　このあとDockerで5000番ポートを使う
+
+      # ----------------------
+      # CNN コンテナテスト
+      # ----------------------
+      # Dockerfileからイメージ作成
+      - name: Build CNN Container
+        run: docker build -t cnn_model ./ml_api
+
+      - name: Run CNN Container
+
+      # 作ったイメージからコンテナ起動
+        run: |
+          docker run -d -p 5000:5000 --name cnn_test cnn_model
+          sleep 10
+
+      - name: Test CNN API
+      # Dockerコンテナ経由でAPI確認
+        run: |
+          curl -X POST http://localhost:5000/predict \
+          -H "Content-Type: application/json" \
+          -d '{"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
+
+      # コンテナ開放　ポート解放
+      - name: Stop CNN Container
+        run: |
+          docker stop cnn_test
+          docker rm cnn_test
+
+      # ----------------------
+      # Logistic コンテナテスト
+      # ----------------------
+      - name: Build Logistic Container
+        run: docker build -t logistic_model ./test_api_logistic
+
+      - name: Run Logistic Container
+        run: |
+          docker run -d -p 5001:5000 --name logistic_test logistic_model
+          sleep 10
+
+      - name: Test Logistic API
+        run: |
+          curl -X POST http://localhost:5001/predict \
+          -H "Content-Type: application/json" \
+          -d '{"data":[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]}'
+
+      - name: Stop Logistic Container
+        run: |
+          docker stop logistic_test
+          docker rm logistic_test
