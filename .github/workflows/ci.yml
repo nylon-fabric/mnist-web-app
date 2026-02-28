@@ -82,7 +82,7 @@ jobs:
 
       - name: Run Logistic Container
         run: |
-          docker run -d -p 5002:5000 --name logistic_test logistic_model
+          docker run -d -p 5002:5001 --name logistic_test logistic_model
           sleep 10
 
       - name: Test Logistic API
