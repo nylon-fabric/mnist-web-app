@@ -83,7 +83,7 @@ Custom CNN model implementation:
 
 ## How to Run
 The system consists of:
-- AAI inference API (Flask): Docker container
+- AI inference API (Flask): Docker container
 - Web management server (Django): local execution
 - Frontend (React): local execution
 
