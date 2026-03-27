@@ -4,8 +4,27 @@
 
 ![Frontend Demo](/docs/screen/mnist-web.gif)
 ## Overview
-This is a full-stack AI web application that combines React (learned in class) with Django, Flask, and TensorFlow (self-taught).<br>
-It is designed not only for digit prediction but also for multi-digit recognition and data accumulation for retraining through user corrections — aiming for practical, production-oriented functionality.
+A web application that recognizes handwritten digits using a CNN model.<br>
+Users can draw digits and get real-time predictions via an API.<br>
+<br>
+This is a full-stack AI web application built with React, Django, Flask, and TensorFlow.<br>
+It is designed not only for digit prediction but also for multi-digit recognition and data accumulation for retraining through user corrections — aiming for practical, production-oriented functionality.<br>
+<br>
+This system is designed for practical usage, enabling continuous model improvement through user feedback.
+
+## My Contributions
+- Designed and implemented CNN model for digit recognition
+- Built inference API using Flask
+- Developed frontend using React and TypeScript
+- Designed backend system using Django
+- Implemented Human-in-the-Loop retraining pipeline
+- Containerized services using Docker
+
+## Results
+- Achieved ~98% accuracy on MNIST test dataset
+- Supports multi-digit recognition
+- Implemented Human-in-the-Loop retraining pipeline
+- Designed a decoupled architecture (React, Django, Flask)
 
 ## Features
 - Multi-digit recognition<br>
@@ -21,7 +40,7 @@ It is designed not only for digit prediction but also for multi-digit recognitio
   Type-safe development and an intuitive UI using Canvas.
 ### Backend
 - Django<br>
-  Type-safe development and an intuitive UI using Canvas.
+  Backend framework for web management and data handling.
 - Flask<br>
   Lightweight API server dedicated to AI inference.
 ### AI / Machine Learning
@@ -45,8 +64,6 @@ Custom CNN model implementation:
   2 pooling layers, dropout (0.5)
 - Design philosophy<br>
   Gradually reduces resolution while increasing feature richness, improving robustness to noise.
-- Evaluation metric: Accuracy
-- Test accuracy: ~98%
 
 ## Model Layer Diagram
 ![Model Layer Diagram](/docs/architecture/ml_model_architecture/ml_model_architecture.svg)
