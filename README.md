@@ -1,3 +1,5 @@
+![CI](https://github.com/nylon-fabric/mnist-web-app/actions/workflows/ci.yml/badge.svg)
+
 # AI手書き数字認識システム (mnist-web-app)
 ![フロント表示内容](/docs/screen/mnist-web.gif)
 ## 概要
